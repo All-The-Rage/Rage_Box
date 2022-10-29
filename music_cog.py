@@ -69,7 +69,7 @@ class MusicCog(commands.Cog):
             self.is_playing = False
 
     # defining the play function
-    @commands.command(name="play", aliases=["p", "playing"], help="Play the selected song from YouTube.")
+    @commands.command(name="play", aliases=["p", "playing"], help="Find the track on YouTube and play it in your channel.")
     async def play(self, ctx, *args):
         # saving users input to use later as the search parameters
         query = " ".join(args)
@@ -94,7 +94,7 @@ class MusicCog(commands.Cog):
                     await self.play_music(ctx)
 
     # defining the pause function
-    @commands.command(name="pause", aliases=["p"], help="Pauses the current song being played")
+    @commands.command(name="pause", aliases=["p"], help="Pause the track being played, resumes if I was paused already.")
     async def pause(self, ctx, *args):
         # setups up the bot to pause
         if self.is_playing:
@@ -116,14 +116,14 @@ class MusicCog(commands.Cog):
             self.vc.resume()
 
     # defines the skip function
-    @commands.command(name="skip", aliases=["s"], help="Skips the current song.")
+    @commands.command(name="skip", aliases=["s"], help="Skips the current track.")
     async def skip(self, ctx, *args):
         if self.vc is not None and self.vc:
             self.vc.stop()
             await self.play_music(ctx)
 
     # defines the queue function
-    @commands.command(name="queue", aliases=["q"], help="Displays all the songs currently in the queue.")
+    @commands.command(name="queue", aliases=["q"], help="Displays the current playlist.")
     async def queue(self, ctx):
         retval = ""
 
@@ -137,7 +137,7 @@ class MusicCog(commands.Cog):
             await ctx.send("No music in the queue.")
 
     # defines the clear command
-    @commands.command(name="clear", aliases=[], help="Stops the current song and clears the queue.")
+    @commands.command(name="clear", aliases=["c"], help="Stops the music and clears the playlist.")
     async def clear(self, ctx, *args):
         if self.vc is not None and self.is_playing:
             self.vc.stop()
@@ -145,8 +145,9 @@ class MusicCog(commands.Cog):
         await ctx.send("Music queue cleared.")
 
     # defines the leave command
-    @commands.command(name="leave", aliases=["disconnect", "d"], help="Kick the bot from the voice channel.")
+    @commands.command(name="leave", aliases=["disconnect", "d"], help="Disconnects me from the channel I currently in.")
     async def leave(self, ctx):
         self.is_playing = False
+        self.is_paused = False
         self.is_paused = False
         await self.vc.disconnect()
