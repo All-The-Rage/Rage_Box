@@ -4,7 +4,7 @@ from discord.ext import commands
 from youtube_dl import YoutubeDL
 
 
-class MusicCog(commands.Cog):
+class music_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -69,7 +69,7 @@ class MusicCog(commands.Cog):
             self.is_playing = False
 
     # defining the play function
-    @commands.command(name="play", aliases=["p", "playing"], help="Find the track on YouTube and play it in your channel.")
+    @commands.command(name="play", aliases=["playing"], help="Find the track on YouTube and play it in your channel.")
     async def play(self, ctx, *args):
         # saving users input to use later as the search parameters
         query = " ".join(args)
