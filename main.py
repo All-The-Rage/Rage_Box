@@ -12,7 +12,7 @@ token = os.getenv('DISCORD_TOKEN')
 
 # the character used in discord to run the bot itself
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="/", intents=intents)
+bot = commands.Bot(command_prefix="!")
 
 # removes the default help command since a custom one is being used for this bot
 bot.remove_command('help')
